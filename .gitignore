@@ -5,3 +5,26 @@ __pycache__/
 .env
 .DS_Store
 *.sqlite3
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# macOS
+.DS_Store
+
+# Django
+*.log
+staticfiles/
+
+# IDE
+.vscode/
+.idea/
