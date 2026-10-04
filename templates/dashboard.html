@@ -1,0 +1,1813 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GridShield AI | Electricity Theft Detection</title>
+
+    <link rel="stylesheet"
+          href="{% static 'detection_app/css/dashboard.css' %}?v=20260915-insights-2">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<header class="navbar">
+
+    <a href="#hero" class="brand">
+
+        <div class="brand-icon">
+            ⚡
+        </div>
+
+        <div>
+
+            <h2>
+                GridShield <span>AI</span>
+            </h2>
+
+            <p>
+                INTELLIGENT GRID SECURITY
+            </p>
+
+        </div>
+
+    </a>
+
+
+    <nav class="nav-links">
+
+        <a href="#hero">
+            Overview
+        </a>
+
+        <a href="#upload">
+            AI Detection
+        </a>
+
+        <a href="#analytics">
+            Analytics
+        </a>
+
+        <a href="#records">
+            Results
+        </a>
+
+    </nav>
+
+
+    <div class="system-status">
+
+        <span class="status-dot"></span>
+
+        <span>
+            AI SYSTEM ONLINE
+        </span>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero" id="hero">
+
+    <div class="hero-grid"></div>
+
+
+    <div class="hero-content">
+
+
+        <div class="hero-text">
+
+            <div class="eyebrow">
+
+                <span class="pulse-dot"></span>
+
+                NEXT-GENERATION ENERGY INTELLIGENCE
+
+            </div>
+
+
+            <h1>
+
+                Protecting the Grid
+
+                <span>
+                    with Artificial Intelligence.
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                GridShield AI analyzes smart meter electricity
+                consumption patterns using machine learning to
+                identify suspicious behavior and potential
+                electricity theft.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="#upload"
+                   class="btn-primary">
+
+                    Start AI Analysis
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+                <a href="#analytics"
+                   class="btn-secondary">
+
+                    View Analytics
+
+                </a>
+
+            </div>
+
+
+
+            <div class="hero-mini-stats">
+
+                <div>
+
+                    <strong>
+                        {{ total|default:0 }}
+                    </strong>
+
+                    <span>
+                        Consumers Analyzed
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ suspicious|default:0 }}
+                    </strong>
+
+                    <span>
+                        Threats Detected
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        24/7
+                    </strong>
+
+                    <span>
+                        AI Monitoring
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- AI VISUAL -->
+
+        <div class="orb-container">
+
+            <div class="orb-glow"></div>
+
+            <div class="orb-ring ring-one"></div>
+
+            <div class="orb-ring ring-two"></div>
+
+            <div class="orb-ring ring-three"></div>
+
+
+            <div class="orb-core">
+
+                <div class="bolt">
+                    ⚡
+                </div>
+
+                <span>
+                    AI
+                </span>
+
+            </div>
+
+
+            <div class="orb-scan"></div>
+
+
+            <div class="floating-card card-top">
+
+                <small>
+                    AI DETECTION ENGINE
+                </small>
+
+                <strong>
+
+                    <span class="live-dot"></span>
+
+                    LIVE
+
+                </strong>
+
+            </div>
+
+
+            <div class="floating-card card-left">
+
+                <small>
+                    SMART GRID
+                </small>
+
+                <strong>
+                    Monitoring Active
+                </strong>
+
+            </div>
+
+
+            <div class="floating-card card-right">
+
+                <small>
+                    THREAT ANALYSIS
+                </small>
+
+                <strong>
+                    Real-Time Patterns
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     UPLOAD
+     ========================================================= -->
+
+<section class="upload-section"
+         id="upload">
+
+
+    <div class="section-heading">
+
+        <span>
+            AI DETECTION
+        </span>
+
+        <h2>
+            Analyze Your Smart Meter Data
+        </h2>
+
+        <p>
+
+            Upload a CSV dataset containing electricity
+            consumption records and allow the machine learning
+            model to identify suspicious consumption patterns.
+
+        </p>
+
+    </div>
+
+
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          id="uploadForm">
+
+        {% csrf_token %}
+
+
+        <div class="upload-wrapper">
+
+
+            <div class="upload-zone"
+                 id="dropZone">
+
+
+                <input type="file"
+                       id="csvFile"
+                       name="csv_file"
+                       accept=".csv"
+                       hidden
+                       required>
+
+
+                <div class="upload-icon">
+                    ↑
+                </div>
+
+
+                <h3 id="fileTitle">
+
+                    Drop your smart meter dataset here
+
+                </h3>
+
+
+                <p id="fileLabel">
+
+                    Drag and drop your CSV file
+                    or click to browse
+
+                </p>
+
+
+                <button type="button"
+                        class="browse-btn"
+                        id="browseBtn">
+
+                    Browse CSV File
+
+                </button>
+
+
+                <div class="upload-format">
+
+                    Supported format: CSV
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="error-box"
+                 id="errorBox">
+            </div>
+
+
+
+            <!-- PROCESSING PIPELINE -->
+
+            <div class="processing-pipeline"
+                 id="processingPipeline">
+
+
+                <div class="pipeline-header">
+
+                    <span class="pipeline-dot"></span>
+
+                    AI PROCESSING PIPELINE
+
+                </div>
+
+
+                <div class="pipeline-steps">
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Reading Smart Meter Data
+                            </strong>
+
+                            <small>
+                                Loading consumption records
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Data Preprocessing
+                            </strong>
+
+                            <small>
+                                Cleaning and preparing data
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            03
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Feature Engineering
+                            </strong>
+
+                            <small>
+                                Extracting usage patterns
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            04
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Feature Scaling
+                            </strong>
+
+                            <small>
+                                Preparing model inputs
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            05
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Machine Learning Analysis
+                            </strong>
+
+                            <small>
+                                Running theft detection model
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="loading-step">
+
+                        <span class="step-number">
+                            06
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Threat Classification
+                            </strong>
+
+                            <small>
+                                Calculating theft probability
+                            </small>
+
+                        </div>
+
+                        <span class="step-check">
+                            ✓
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <button type="submit"
+                    class="analyze-btn">
+
+                <span>
+                    ⚡
+                </span>
+
+                Analyze with GridShield AI
+
+            </button>
+
+
+        </div>
+
+    </form>
+
+</section>
+
+
+
+<!-- =========================================================
+     ANALYTICS
+     ========================================================= -->
+
+<section class="analytics-section"
+         id="analytics">
+
+
+    <div class="section-heading">
+
+        <span>
+            ANALYTICS DASHBOARD
+        </span>
+
+        <h2>
+            Detection Intelligence
+        </h2>
+
+        <p>
+
+            Real-time overview of the latest
+            machine learning analysis.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                ◉
+            </div>
+
+            <div>
+
+                <span>
+                    Total Consumers
+                </span>
+
+                <strong>
+                    {{ total|default:0 }}
+                </strong>
+
+                <small>
+                    Analyzed in current session
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+                ✓
+            </div>
+
+            <div>
+
+                <span>
+                    Normal Usage
+                </span>
+
+                <strong>
+                    {{ normal|default:0 }}
+                </strong>
+
+                <small>
+                    Normal consumption patterns
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon red">
+                !
+            </div>
+
+            <div>
+
+                <span>
+                    Suspicious Activity
+                </span>
+
+                <strong>
+                    {{ suspicious|default:0 }}
+                </strong>
+
+                <small>
+                    Flagged for investigation
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+                AI
+            </div>
+
+            <div>
+
+                <span>
+                    Detection Engine
+                </span>
+
+
+                {% if suspicious > 0 %}
+
+                    <strong class="alert-text">
+                        ALERT
+                    </strong>
+
+                    <small>
+                        Investigation recommended
+                    </small>
+
+                {% else %}
+
+                    <strong class="safe-text">
+                        CLEAR
+                    </strong>
+
+                    <small>
+                        No suspicious activity
+                    </small>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CHARTS -->
+
+    <div class="charts-grid">
+
+
+        <div class="chart-card">
+
+            <div class="chart-title">
+
+                <div>
+
+                    <span>
+                        DETECTION OVERVIEW
+                    </span>
+
+                    <h3>
+                        Theft vs Normal Usage
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-canvas">
+
+                <canvas id="detectionChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="chart-card">
+
+            <div class="chart-title">
+
+                <div>
+
+                    <span>
+                        RISK DISTRIBUTION
+                    </span>
+
+                    <h3>
+                        Consumer Risk Analysis
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-canvas">
+
+                <canvas id="riskChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESULTS
+     ========================================================= -->
+
+<section class="records-section"
+         id="records">
+
+
+    <div class="records-header">
+
+
+        <div>
+
+            <span class="section-tag">
+                CONSUMER INTELLIGENCE
+            </span>
+
+            <h2>
+                Detection Results
+            </h2>
+
+            <p>
+
+                Detailed results generated by
+                the GridShield AI detection model.
+
+            </p>
+
+        </div>
+
+
+        <div class="anomaly-legend"
+             aria-label="Anomaly severity legend">
+
+            <span>
+                <i class="anomaly-normal"></i>
+                Normal
+            </span>
+
+            <span>
+                <i class="anomaly-slight"></i>
+                Slight Anomaly
+            </span>
+
+            <span>
+                <i class="anomaly-suspicious"></i>
+                Suspicious
+            </span>
+
+            <span>
+                <i class="anomaly-high"></i>
+                Highly Anomalous
+            </span>
+
+        </div>
+
+
+
+        <div class="table-controls">
+
+
+            <div class="search-box">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input type="text"
+                       id="tableSearch"
+                       placeholder="Search consumer, meter or area...">
+
+            </div>
+
+
+
+            <select id="statusFilter">
+
+                <option value="all">
+                    All Results
+                </option>
+
+                <option value="theft">
+                    Potential Theft
+                </option>
+
+                <option value="normal">
+                    Normal Usage
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="table-wrapper">
+
+
+        <table id="resultsTable">
+
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Consumer
+                    </th>
+
+                    <th>
+                        Meter Number
+                    </th>
+
+                    <th>
+                        Average Usage
+                    </th>
+
+                    <th>
+                        Peak Usage
+                    </th>
+
+                    <th>
+                        Risk Probability
+                    </th>
+
+                    <th>
+                        AI Classification
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                {% for r in records %}
+
+
+                <!-- =================================================
+                     CONSUMER RESULT ROW
+                     ================================================= -->
+
+                <tr class="consumer-row"
+                    data-record-id="{{ r.id }}"
+                    data-status="{% if r.prediction_result == 'Theft' %}theft{% else %}normal{% endif %}">
+
+
+                    <!-- Consumer -->
+
+                    <td>
+
+                        <div class="consumer-info">
+
+
+                            <div class="consumer-avatar">
+
+                                {{ r.consumer_id }}
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+
+                                    {{ r.consumer_name }}
+
+                                </strong>
+
+
+                                <small>
+
+                                    {{ r.area }}
+
+                                </small>
+
+
+                                <button type="button"
+                                        class="insight-trigger"
+                                        aria-expanded="false"
+                                        aria-controls="insight-{{ r.id }}">
+
+                                    <span class="insight-trigger-label">
+                                        Open insights
+                                    </span>
+
+                                    <span class="insight-trigger-icon"
+                                          aria-hidden="true">
+                                        &gt;
+                                    </span>
+
+                                </button>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </td>
+
+
+
+                    <!-- Meter -->
+
+                    <td>
+
+                        <span class="meter-id">
+
+                            {{ r.meter_number }}
+
+                        </span>
+
+                    </td>
+
+
+
+                    <!-- Average -->
+
+                    <td>
+
+                        {{ r.avg_consumption|floatformat:2 }}
+
+                    </td>
+
+
+
+                    <!-- Peak -->
+
+                    <td>
+
+                        {{ r.peak_consumption|floatformat:2 }}
+
+                    </td>
+
+
+
+                    <!-- Probability -->
+
+                    <td>
+
+                        <div class="risk-cell">
+
+
+                            <div class="risk-progress">
+
+                                <div
+                                    class="risk-fill {% if r.prediction_result == 'Theft' %}high-risk{% else %}low-risk{% endif %}"
+                                    style="width: {{ r.theft_probability }}%">
+                                </div>
+
+                            </div>
+
+
+                            <span>
+
+                                {{ r.theft_probability|floatformat:2 }}%
+
+                            </span>
+
+
+                        </div>
+
+                    </td>
+
+
+
+                    <!-- Classification -->
+
+                    <td>
+
+
+                        {% if r.prediction_result == "Theft" %}
+
+                            <span class="classification theft">
+
+                                <span></span>
+
+                                Potential Theft
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="classification normal">
+
+                                <span></span>
+
+                                Normal Usage
+
+                            </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+                </tr>
+
+
+
+                <!-- =================================================
+                     VIEW INSIGHTS
+                     ================================================= -->
+
+                <tr class="insight-detail-row"
+                    id="insight-{{ r.id }}"
+                    data-detail-for="{{ r.id }}"
+                    hidden>
+
+                    <td colspan="6">
+
+
+                        <div class="insight-page">
+
+
+                            <!-- HEADER -->
+
+                            <header class="insight-header">
+
+                                <div>
+
+                                    <span class="feature-kicker">
+                                        Consumer Insights
+                                    </span>
+
+                                    <h2>
+                                        Consumer
+                                        <strong>
+                                            {{ r.consumer_id }}
+                                        </strong>
+                                    </h2>
+
+                                    <p>
+                                        AI-powered analysis of consumption
+                                        behavior and theft risk
+                                    </p>
+
+                                </div>
+
+
+                                <div class="insight-header-actions">
+
+
+                                    <button type="button"
+                                            class="insight-close"
+                                            aria-label="Close consumer insights">
+
+                                        &times;
+
+                                    </button>
+
+
+                                    <div class="insight-header-risk">
+
+                                        <span>
+                                            Risk score
+                                        </span>
+
+                                        <strong>
+                                            {{ r.theft_probability|floatformat:0 }}%
+                                        </strong>
+
+                                        <b class="{% if r.prediction_result == 'Theft' %}risk-high{% else %}risk-normal{% endif %}">
+
+                                            <i></i>
+
+                                            {% if r.prediction_result == 'Theft' %}
+                                                HIGH RISK
+                                            {% else %}
+                                                NORMAL RISK
+                                            {% endif %}
+
+                                        </b>
+
+                                    </div>
+
+
+                                </div>
+
+                            </header>
+
+
+
+                            <!-- SUMMARY -->
+
+                            <div class="summary-grid">
+
+
+                                <div class="summary-card">
+
+                                    <span class="summary-icon">
+                                        01
+                                    </span>
+
+                                    <div>
+
+                                        <small>
+                                            Average consumption
+                                        </small>
+
+                                        <strong>
+                                            {{ r.avg_consumption|floatformat:2 }}
+                                            <em>kWh</em>
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="summary-card">
+
+                                    <span class="summary-icon">
+                                        02
+                                    </span>
+
+                                    <div>
+
+                                        <small>
+                                            Peak consumption
+                                        </small>
+
+                                        <strong>
+                                            {{ r.peak_consumption|floatformat:2 }}
+                                            <em>kWh</em>
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="summary-card">
+
+                                    <span class="summary-icon">
+                                        03
+                                    </span>
+
+                                    <div>
+
+                                        <small>
+                                            Zero consumption days
+                                        </small>
+
+                                        <strong class="summary-unavailable">
+                                            Not available
+                                        </strong>
+
+                                        <em class="summary-note">
+                                            Not stored in this result
+                                        </em>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="summary-card summary-risk">
+
+                                    <span class="summary-icon">
+                                        04
+                                    </span>
+
+                                    <div>
+
+                                        <small>
+                                            Risk score
+                                        </small>
+
+                                        <strong>
+                                            {{ r.theft_probability|floatformat:0 }}%
+                                        </strong>
+
+                                        <b class="{% if r.prediction_result == 'Theft' %}risk-high{% else %}risk-normal{% endif %}">
+
+                                            {% if r.prediction_result == 'Theft' %}
+                                                HIGH RISK
+                                            {% else %}
+                                                NORMAL RISK
+                                            {% endif %}
+
+                                        </b>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- MAIN INSIGHT GRID -->
+
+                            <div class="insight-main-grid">
+
+
+                                <!-- EXPLAINABLE AI -->
+
+                                <section class="feature-card explain-card"
+                                         aria-labelledby="explain-title-{{ r.id }}">
+
+
+                                    <div class="feature-card-header">
+
+                                        <div>
+
+                                            <span class="feature-kicker">
+                                                Explainable AI
+                                            </span>
+
+                                            <h3 id="explain-title-{{ r.id }}">
+                                                Why was this consumer flagged?
+                                            </h3>
+
+                                            <p>
+                                                Top model contributors,
+                                                ranked by absolute impact
+                                            </p>
+
+                                        </div>
+
+
+                                        <span class="card-code">
+                                            SHAP
+                                        </span>
+
+                                    </div>
+
+
+                                    {% if r.shap_explanation %}
+
+
+                                    <div class="factor-list"
+                                         data-factor-list="{{ r.id }}">
+
+
+                                        {% for item in r.shap_explanation|slice:":5" %}
+
+
+                                        <div class="factor-item"
+                                             data-direction="{{ item.direction }}"
+                                             data-label="{{ item.label }}"
+                                             data-percentage="{{ item.percentage }}"
+                                             title="{{ item.label }} {% if item.direction == 'increases' %}increases{% else %}reduces{% endif %} predicted theft risk.">
+
+
+                                            <div class="factor-meta">
+
+                                                <span>
+                                                    {{ item.label }}
+                                                </span>
+
+                                                <strong>
+
+                                                    {% if item.percentage >= 0 %}
+                                                        +
+                                                    {% endif %}
+
+                                                    {{ item.percentage }}%
+
+                                                </strong>
+
+                                            </div>
+
+
+                                            <div class="factor-track">
+
+                                                <span
+                                                    class="factor-bar {% if item.direction == 'increases' %}factor-positive{% else %}factor-negative{% endif %}"
+                                                    style="width: {{ item.bar_width }}%">
+                                                </span>
+
+                                            </div>
+
+
+                                            <small>
+
+                                                {% if item.direction == 'increases' %}
+                                                    Increases theft risk
+                                                {% else %}
+                                                    Reduces theft risk
+                                                {% endif %}
+
+                                            </small>
+
+
+                                        </div>
+
+
+                                        {% endfor %}
+
+
+                                    </div>
+
+
+                                    {% else %}
+
+                                        <p class="insight-muted">
+                                            Explanation unavailable for this model result.
+                                        </p>
+
+                                    {% endif %}
+
+
+                                    <div class="reading-note">
+
+                                        <strong>
+                                            How to read this
+                                        </strong>
+
+                                        <span>
+                                            Positive contributions increase
+                                            predicted theft risk; negative
+                                            contributions reduce it.
+                                        </span>
+
+                                    </div>
+
+
+                                </section>
+
+
+
+                                <!-- RISK ASSESSMENT -->
+
+                                <section class="feature-card risk-card"
+                                         aria-labelledby="risk-title-{{ r.id }}">
+
+
+                                    <div class="feature-card-header">
+
+                                        <div>
+
+                                            <span class="feature-kicker">
+                                                Risk assessment
+                                            </span>
+
+                                            <h3 id="risk-title-{{ r.id }}">
+                                                Confidence &amp; signals
+                                            </h3>
+
+                                        </div>
+
+
+                                        <span class="card-code">
+                                            MODEL
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="risk-meter">
+
+
+                                        <div
+                                            class="risk-ring {% if r.prediction_result == 'Theft' %}risk-ring-high{% else %}risk-ring-normal{% endif %}"
+                                            style="--risk: {{ r.theft_probability }}%;">
+
+                                            <strong>
+                                                {{ r.theft_probability|floatformat:0 }}%
+                                            </strong>
+
+                                            <span>
+                                                confidence
+                                            </span>
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <span class="risk-level-label">
+                                                Risk level
+                                            </span>
+
+                                            <strong
+                                                class="risk-level {% if r.prediction_result == 'Theft' %}risk-high{% else %}risk-normal{% endif %}">
+
+                                                {% if r.prediction_result == 'Theft' %}
+                                                    HIGH
+                                                {% else %}
+                                                    NORMAL
+                                                {% endif %}
+
+                                            </strong>
+
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="indicator-heading">
+                                        Primary risk indicators
+                                    </div>
+
+
+                                    <ul class="risk-indicators"
+                                        data-indicators-for="{{ r.id }}">
+                                    </ul>
+
+
+                                </section>
+
+
+                            </div>
+
+
+
+                            <!-- AI INSIGHT -->
+
+                            <section class="ai-insight-card"
+                                     data-insight-for="{{ r.id }}">
+
+
+                                <span class="insight-spark">
+                                    AI
+                                </span>
+
+
+                                <div>
+
+                                    <span class="feature-kicker">
+                                        AI insight
+                                    </span>
+
+                                    <p>
+                                        This result is primarily influenced
+                                        by the strongest measured consumption
+                                        patterns.
+                                    </p>
+
+                                </div>
+
+
+                            </section>
+
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td colspan="6"
+                        class="empty-table">
+
+
+                        <div class="empty-icon">
+                            ⚡
+                        </div>
+
+
+                        <h3>
+                            No analysis results yet
+                        </h3>
+
+
+                        <p>
+
+                            Upload a smart meter CSV dataset
+                            to begin AI-powered electricity
+                            theft detection.
+
+                        </p>
+
+
+                    </td>
+
+                </tr>
+
+
+                {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WORKFLOW
+     ========================================================= -->
+
+<section class="workflow-section">
+
+
+    <div class="section-heading">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+        <h2>
+            Intelligence Behind the Detection
+        </h2>
+
+        <p>
+
+            Raw smart meter consumption data is
+            transformed into actionable intelligence
+            through the machine learning pipeline.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="workflow">
+
+
+        <div class="workflow-item">
+
+            <div class="workflow-number">
+                01
+            </div>
+
+            <div class="workflow-icon">
+                ◆
+            </div>
+
+            <h3>
+                Smart Meter Data
+            </h3>
+
+            <p>
+                Electricity consumption records
+                are securely processed.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-item">
+
+            <div class="workflow-number">
+                02
+            </div>
+
+            <div class="workflow-icon">
+                ◌
+            </div>
+
+            <h3>
+                Feature Engineering
+            </h3>
+
+            <p>
+                Statistical consumption patterns
+                are extracted.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-item">
+
+            <div class="workflow-number">
+                03
+            </div>
+
+            <div class="workflow-icon">
+                AI
+            </div>
+
+            <h3>
+                ML Analysis
+            </h3>
+
+            <p>
+                The trained machine learning
+                model analyzes behavior.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-item">
+
+            <div class="workflow-number">
+                04
+            </div>
+
+            <div class="workflow-icon">
+                ⚠
+            </div>
+
+            <h3>
+                Threat Detection
+            </h3>
+
+            <p>
+                Potential electricity theft
+                is identified.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+
+    <div class="footer-brand">
+
+        <span>
+            ⚡
+        </span>
+
+        <strong>
+            GridShield AI
+        </strong>
+
+    </div>
+
+
+    <p>
+
+        Intelligent electricity theft detection
+        powered by machine learning.
+
+    </p>
+
+
+    <span>
+
+        AI-Powered Grid Security
+
+    </span>
+
+
+</footer>
+
+
+
+<!-- =========================================================
+     DJANGO DATA
+     ========================================================= -->
+
+<script>
+
+    window.dashboardData = {
+
+        total: Number("{{ total|default:0 }}"),
+
+        normal: Number("{{ normal|default:0 }}"),
+
+        suspicious: Number("{{ suspicious|default:0 }}")
+
+    };
+
+</script>
+
+
+<!-- =========================================================
+     DASHBOARD JAVASCRIPT
+     ========================================================= -->
+
+<script src="{% static 'detection_app/js/dashboard.js' %}"></script>
+
+
+</body>
+
+</html>
